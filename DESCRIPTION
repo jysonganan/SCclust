@@ -15,6 +15,8 @@ Suggests: knitr,
     testthat
 VignetteBuilder: knitr
 Imports: parallel
+URL: https://github.com/JunyanSong/SCclust
+BugReports: https://github.com/JunyanSong/SCclust/issues
 
 
 
