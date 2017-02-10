@@ -85,13 +85,14 @@ sim_fisherPV &lt;- res3$sim_fisherPV</code></pre>
 <div id="significance-assessment-of-pairwise-dissimilarity" class="section level3">
 <h3>(6) Significance assessment of pairwise dissimilarity</h3>
 <p>Compute the FDRs <code>mat_fdr</code> for the observed Fisher’s test p-values.</p>
-<pre><code>mat_fdr &lt;- fdr_fisherPV(true_fisherPV, sim_fisherPV, cell_names)</code></pre>
+<pre><code>mat_fdr &lt;- fdr_fisherPV(true_fisherPV, sim_fisherPV, cell_names, lm_max = 0.001, graphic = TRUE)</code></pre>
 </div>
 <div id="identify-the-clone-in-the-hierarchical-clustering-tree" class="section level3">
 <h3>(7) Identify the clone in the hierarchical clustering tree</h3>
 <p>This procedure identify the hard and soft clones and display the hierarchical tree. The clones node information can be output from <code>hc$softclones</code>.</p>
-<pre><code>hc &lt;- hclust_tree(pinmat, mat_fdr, true_fisherPV, cell_names)
-hc_clone &lt;- find_clone(hc)</code></pre>
+<pre><code>hc &lt;- hclust_tree(pinmat, mat_fdr, true_fisherPV, cell_names, hc_method = &quot;average&quot;)
+hc_clone &lt;- find_clone(hc$hc, fdr_thresh = -2, share_min = 0.90, n_share = 3, bymax = TRUE, 
+                       climb_from_size = 2, climb_to_share = 3, graphic = TRUE)</code></pre>
 </div>
 </div>
 <div id="more-information" class="section level2">

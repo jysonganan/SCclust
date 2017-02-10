@@ -65,13 +65,14 @@ sim_fisherPV <- res3$sim_fisherPV
 ### (6) Significance assessment of pairwise dissimilarity
 Compute the FDRs `mat_fdr` for the observed Fisher's test p-values.
 ```
-mat_fdr <- fdr_fisherPV(true_fisherPV, sim_fisherPV, cell_names)
+mat_fdr <- fdr_fisherPV(true_fisherPV, sim_fisherPV, cell_names, lm_max = 0.001, graphic = TRUE)
 ```
 ### (7) Identify the clone in the hierarchical clustering tree
 This procedure identify the hard and soft clones and display the hierarchical tree. The clones node information can be output from `hc$softclones`. 
 ```
-hc <- hclust_tree(pinmat, mat_fdr, true_fisherPV, cell_names)
-hc_clone <- find_clone(hc)
+hc <- hclust_tree(pinmat, mat_fdr, true_fisherPV, cell_names, hc_method = "average")
+hc_clone <- find_clone(hc$hc, fdr_thresh = -2, share_min = 0.90, n_share = 3, bymax = TRUE, 
+                       climb_from_size = 2, climb_to_share = 3, graphic = TRUE)
 ```
 
 ## More Information
