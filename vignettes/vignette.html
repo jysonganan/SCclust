@@ -12,7 +12,7 @@
 
 <meta name="author" content="Junyan Song" />
 
-<meta name="date" content="2017-02-10" />
+<meta name="date" content="2017-02-11" />
 
 <title>Usage Tips</title>
 
@@ -32,7 +32,7 @@
 
 <h1 class="title toc-ignore">Usage Tips</h1>
 <h4 class="author"><em>Junyan Song</em></h4>
-<h4 class="date"><em>2017-02-10</em></h4>
+<h4 class="date"><em>2017-02-11</em></h4>
 
 
 
@@ -66,7 +66,7 @@ ploidies_table &lt;- res1$ploidies_table</code></pre>
 </div>
 <div id="derivation-of-new-feature-set" class="section level3">
 <h3>(4) Derivation of new feature set</h3>
-<p>The breakpoints are extended to an interval spanning 2*<code>smear</code> bins. This results in the <code>smear_table</code>.</p>
+<p>The breakpoints are extended to an interval spanning 2*<code>smear</code>+1 bins. This results in the <code>smear_table</code>.</p>
 <p>The function <code>findpins</code> implement the procedure to find a minimum set of “piercing points” for the extended intervals as the new feature set and derive the incidence table. The piercing points are a smallest set of points such that each interval contains at least one of them. <code>pins</code> and <code>pinmat</code> provide the bin location of new feature set and the incidence table. We extract <code>cell_names</code> for stages later.</p>
 <pre><code>smear_table &lt;- findsmears(breakpoint_table, dropareas, smear = 2, keepboundaries = TRUE, mask_XY = TRUE)
 

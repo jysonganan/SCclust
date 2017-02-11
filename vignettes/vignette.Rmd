@@ -42,7 +42,7 @@ ploidies_table <- res1$ploidies_table
 ```
 
 ### (4) Derivation of new feature set
-The breakpoints are extended to an interval spanning 2*`smear` bins. This results in the `smear_table`. 
+The breakpoints are extended to an interval spanning 2*`smear`+1 bins. This results in the `smear_table`. 
 
 The function `findpins` implement the procedure to find a minimum set of "piercing points" for the extended intervals as the new feature set and derive the incidence table. The piercing points are a smallest set of points such that each interval contains at least one of them. `pins` and `pinmat` provide the bin location of new feature set and the incidence table. We extract `cell_names` for stages later.
 ```
