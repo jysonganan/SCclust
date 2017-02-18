@@ -6,4 +6,4 @@ devtools::install_github("JunyanSong/SCclust")
 
 ## Usage Tips 
 See vignettes.
-New features are adding to the package.
+Development version.
