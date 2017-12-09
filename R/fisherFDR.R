@@ -7,7 +7,7 @@
 #'@param cell_names A character vector. The names of cells.
 #'@param lm_max Numeric value. Default: 0.001. The threshold parameter for the linear fit.
 #'@param graphic Logical. If TRUE (Default), generate the CDF plots of p-values and FDR values.
-#'@return A matrix of the FDR values.
+#'@return A list containing the matrix of the FDR values (mat_fdr) and distance matrix based on Fisher's test p-values (mat_dist).
 #'@export
 
 
@@ -102,10 +102,17 @@ fdr_fisherPV <- function(true_fisherPV, sim_fisherPV, cell_names, lm_max = 0.001
   mat_fdr <- pmin(mat_fdr,t(mat_fdr))
   colnames(mat_fdr) = rownames(mat_fdr) <- cell_names
 
+  mat_dist <- matrix(ncol = (1 + sqrt(1 + 8*length(true_fisherPV)))/2,
+                     nrow = (1 + sqrt(1 + 8*length(true_fisherPV)))/2,data = 0)
+  mat_dist[upper.tri(mat_dist)] <- log10(true_fisherPV)
+  mat_dist <- pmin(mat_dist,t(mat_dist))
+  colnames(mat_dist) = rownames(mat_dist) <- cell_names
+
+
   # if(is.null(cell_names) == TRUE){
   #   colnames(mat_fdr) = rownames(mat_fdr) <- 1:dim(mat_fdr)[[1]]
   # }else{
   #   colnames(mat_fdr) = rownames(mat_fdr) <- cell_names
   # }
-  return(mat_fdr)
+  return(list(mat_fdr = mat_fdr, mat_dist = mat_dist))
 }

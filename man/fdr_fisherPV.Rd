@@ -19,10 +19,9 @@ fdr_fisherPV(true_fisherPV, sim_fisherPV, cell_names, lm_max = 0.001,
 \item{graphic}{Logical. If TRUE (Default), generate the CDF plots of p-values and FDR values.}
 }
 \value{
-A matrix of the FDR values.
+A list containing the matrix of the FDR values (mat_fdr) and distance matrix based on Fisher's test p-values (mat_dist).
 }
 \description{
 Linear fit to the tail of empirical null distribution of Fisher p-values;
 FDR computation: compare true to simulated CDF(empirical null).
 }
-

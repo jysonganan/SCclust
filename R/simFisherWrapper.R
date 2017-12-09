@@ -11,7 +11,7 @@
 #'@export
 
 
-simFisher_parallel <- function(pins,pinmat,sim_round = 500){
+simFisher_parallel <- function(pins, pinmat, sim_round = 500){
 
   m <- vector(mode = "list", length = length(unique(pins[,"sign"])))
   for(i in 1:length(unique(pins[,"sign"])))

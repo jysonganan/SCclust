@@ -1,42 +1,34 @@
-#'Preprocess the genomic annotation file
-#'
-#'Reformat the chromosome ID of the input annotation file
-#'@param annot The input annotation file "varbin.gc.content.5k.bowtie.k50.hg19.txt".
-#'@return The formated annotation table.
-#'@export
 
 preprocess_annot <- function(annot){
   annot[annot[,"bin.chrom"] == "chrX", "bin.chrom"] <- "chr23"
   annot[annot[,"bin.chrom"] == "chrY", "bin.chrom"] <- "chr24"
+
   annot[,"bin.chrom"] <- as.numeric(substring(annot[,"bin.chrom"], first=4,
                                                   last=nchar(annot[,"bin.chrom"])))
+
   return(annot)
 }
 
 
-#'Identify the centromere areas
-#'
-#'Return the genomic location of the centromere areas, which are considered to be filtered out later.
-#'@param cyto The input annotation file "cytoBandHG19.txt"
-#'@return A table for genomic location of the centromere areas.
-#'@export
+#Identify the centromere areas
 
-drop_areas <- function(cyto){
-  centromere = c("p11","q11")
-  cyto[cyto[,1] == "chrX",1] <- "chr23"
-  cyto[cyto[,1] == "chrY",1] <- "chr24"
-  cyto[,1] <- as.numeric(substring(cyto[,1], first = 4, last = nchar(cyto[,1])))
-  cyto <- cyto[order(cyto[,1]),]
-  centroleft <- cyto[grep(centromere[1], cyto[,4]),]
-  centroright <- cyto[grep(centromere[2], cyto[,4]),]
-  centroleft <- centroleft[match(unique(centroleft[,1]), centroleft[,1]),]
-  centroright <- centroright[nrow(centroright):1,]
-  centroright <- centroright[match(unique(centroright[,1]), centroright[,1]),]
-  centroright <- centroright[nrow(centroright):1,]
-  dropareas <- cbind(centroleft[,c(1,2)], centroright[,3])
-  dimnames(dropareas)[[2]] <- c("chrom", "from", "to")
-  return(dropareas)
-}
+#
+# drop_areas <- function(cyto){
+#   centromere = c("p11","q11")
+#   cyto[cyto[,1] == "chrX",1] <- "chr23"
+#   cyto[cyto[,1] == "chrY",1] <- "chr24"
+#   cyto[,1] <- as.numeric(substring(cyto[,1], first = 4, last = nchar(cyto[,1])))
+#   cyto <- cyto[order(cyto[,1]),]
+#   centroleft <- cyto[grep(centromere[1], cyto[,4]),]
+#   centroright <- cyto[grep(centromere[2], cyto[,4]),]
+#   centroleft <- centroleft[match(unique(centroleft[,1]), centroleft[,1]),]
+#   centroright <- centroright[nrow(centroright):1,]
+#   centroright <- centroright[match(unique(centroright[,1]), centroright[,1]),]
+#   centroright <- centroright[nrow(centroright):1,]
+#   dropareas <- cbind(centroleft[,c(1,2)], centroright[,3])
+#   dimnames(dropareas)[[2]] <- c("chrom", "from", "to")
+#   return(dropareas)
+# }
 
 
 #'Preprocess the segmented copy number profiles
@@ -45,7 +37,7 @@ drop_areas <- function(cyto){
 #'generate the breakpoint table which provides the genomic location
 #'and segmented copy number values for all cells.
 #'@param segfile The segmented copy number profiles of some single cells.
-#'@param annot The reformated annotation table provided by \code{preprocess_annot}.
+#'@param gc The GC content table.
 #'@param eviltwins Bad cells. NULL or a vector of cell names.
 #'@param ploidies Logical. If TRUE (Default), the ploidies and homoloss information are taken into consideration.
 #'@return A list for two tables: breakpoint_table and ploidies_table. Each row in breakpoint_table correspond
@@ -56,7 +48,8 @@ drop_areas <- function(cyto){
 #'@export
 
 
-preprocess_segfile <- function(segfile, annot, eviltwins = NULL, ploidies = TRUE){
+preprocess_segfile <- function(segfile, gc, eviltwins = NULL, ploidies = TRUE){
+  annot <- preprocess_annot(gc)
 
   ## generate annotation file with info: chrom, chromstart, chromend, abstart, absend
   #make sure the location of 5000 bins in segfile/annot are same

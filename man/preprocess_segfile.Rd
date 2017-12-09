@@ -4,12 +4,12 @@
 \alias{preprocess_segfile}
 \title{Preprocess the segmented copy number profiles}
 \usage{
-preprocess_segfile(segfile, annot, eviltwins = NULL, ploidies = TRUE)
+preprocess_segfile(segfile, gc, eviltwins = NULL, ploidies = TRUE)
 }
 \arguments{
 \item{segfile}{The segmented copy number profiles of some single cells.}
 
-\item{annot}{The reformated annotation table provided by \code{preprocess_annot}.}
+\item{gc}{The GC content table.}
 
 \item{eviltwins}{Bad cells. NULL or a vector of cell names.}
 
@@ -27,4 +27,3 @@ Input the segmented copy number profiles of some single cells,
 generate the breakpoint table which provides the genomic location
 and segmented copy number values for all cells.
 }
-

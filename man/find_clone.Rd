@@ -30,4 +30,3 @@ A hclust object.
 \description{
 Based on hierarchical clustering, identify the hard/soft clones.
 }
-

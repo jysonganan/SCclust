@@ -18,4 +18,3 @@ the selected features (pins).
 \description{
 Select features (called as pins), generate the binary matrix with rows as pins and columns as cells.
 }
-

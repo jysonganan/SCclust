@@ -85,7 +85,4 @@ find_clone <- function(hc, fdr_thresh = -2, share_min = 0.90, n_share = 3, bymax
 
   return(hc)
 
-  # pytableP <- TreePy(data = as.dist(mat_dist), method = "average")
-  # pytableP <- cbind(pytableP, hc$mergefdr)
-  # dimnames(pytableP)[[2]][ncol(pytableP)] <- "log10fdr"
 }
