@@ -2,7 +2,7 @@
 R package: Clustering of Single Cell Sequencing Copy Number Profiles to Identify Clones
 
 ## Install
-devtools::install_github("ananjysong/SCclust")
+devtools::install_github("jysonganan/SCclust")
 
 ## Usage Tips 
 See vignettes.
